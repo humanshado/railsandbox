@@ -1,0 +1,46 @@
+<h3>World Population Index</h3>
+
+
+<%= form_tag populations_path, :method => 'get' do %>
+  <p>
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag "Search", :name => nil %>
+  </p>
+<% end %>
+<br /><hr />
+<table>
+  <thead>
+    <tr>
+      <th>Country Name</th>
+      <th>Country Code</th>
+      <th>Year</th>
+      <th>Total Population</th>
+      <th>Urban Population (in %)</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @populations.each do |population| %>
+      <tr>
+        <td><%= population.country_name %></td>
+        <td><%= population.country_code %></td>
+        <td><%= population.year %></td>
+        <td><%= population.total_population %></td>
+        <td><%= population.per_cent_urban_population %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= will_paginate @populations, class: 'apple_pagination' %>
+<br />
+
+<%= form_tag( upload_populations_path , multipart: true) do |f| %>
+    <%= file_field_tag :file %>
+    <%= submit_tag  "Upload" %>
+<% end %>
+
+
+<br />
+<%= button_to  "Delete" %>
+
